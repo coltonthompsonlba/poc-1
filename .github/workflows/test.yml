@@ -23,6 +23,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+        
+      # Checkout dotnet 8
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+          include-prerelease: true
+
       - name: Get Latest Tag
         id: get_latest_tag
         run: |
@@ -69,6 +77,8 @@ jobs:
       - name: Install SQL Module for Powershell
         shell: pwsh
         run: Install-Module -Name SqlServer -Scope CurrentUser -Force
-  
+      
+
       - name: Run tool
-        run: dbpatch version
+        working-directory: ./
+        run: dbpatch help
