@@ -54,6 +54,13 @@ jobs:
               
               echo "::set-output name=latestTag::$version"
               echo "::set-output name=cliAssetUrl::$cliAssetUrl"
+              echo "Downloading dbpatchmanager CLI..."
+
+              unzip -o dbpatchmanager.zip -d ./dbpatchmanager
+              echo "Dbpatchmanager CLI downloaded and unzipped."
+              cd Release
+              dotnet tool install --global --add-source . Ormico.DbPatchManager.CLI
+
             
       - name: Display Release Info
         run: |
