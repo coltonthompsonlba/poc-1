@@ -57,13 +57,13 @@ jobs:
             
       - name: Display Release Info
         run: |
-          echo "Latest Release Version: ${{ steps.get-latest-tag.outputs.latestTag }}"
-          echo "CLI Asset URL: ${{ steps.get-latest-tag.outputs.cliAssetUrl }}"
+          echo "Latest Release Version: $version"
+          echo "CLI Asset URL: $cliAssetUrl"
 
       - name: Download DbpatchManager CLI
         run: |
           echo "Downloading dbpatchmanager CLI..."
-          curl -L -o dbpatchmanager.zip ${{ steps.get-latest-tag.outputs.cliAssetUrl }}
+          curl -L -o dbpatchmanager.zip ${cliAssetUrl}
           echo "Unzipping dbpatchmanager CLI..."
           unzip -o dbpatchmanager.zip -d ./dbpatchmanager
           echo "Dbpatchmanager CLI downloaded and unzipped."
