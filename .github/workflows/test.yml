@@ -66,20 +66,6 @@ jobs:
               cd Release
               dotnet tool install --global --add-source . Ormico.DbPatchManager.CLI
 
-            
-      - name: Display Release Info
-        run: |
-          echo "Latest Release Version: $version"
-          echo "CLI Asset URL: $cliAssetUrl"
-
-      - name: Download DbpatchManager CLI
-        run: |
-          echo "Downloading dbpatchmanager CLI..."
-          curl -L -o dbpatchmanager.zip ${cliAssetUrl}
-          echo "Unzipping dbpatchmanager CLI..."
-          unzip -o dbpatchmanager.zip -d ./dbpatchmanager
-          echo "Dbpatchmanager CLI downloaded and unzipped."
-
       - name: Install SQL Module for Powershell
         shell: pwsh
         run: Install-Module -Name SqlServer -Scope CurrentUser -Force
