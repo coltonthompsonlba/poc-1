@@ -55,8 +55,8 @@ jobs:
 
               core.info(`Latest release version: ${version}`);
 
-              core.setOutput("latestTag", version);
-              core.setOutput("cliAssetUrl", cliAssetUrl);
+              # core.setOutput("latestTag", version);
+              # core.setOutput("cliAssetUrl", cliAssetUrl);
               
             } catch (error) {
               console.error("Error fetching latest release:", error);
