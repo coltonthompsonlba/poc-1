@@ -25,46 +25,35 @@ jobs:
 
       - name: Get Latest Tag
         id: get_latest_tag
-        uses: actions/github-script@v7
-        with:
-          script: |
-            let owner = "ncino"; 
-            let repo = "dbpatchmanager";
+        run: |
+              OWNER="ncino"
+              REPO="dbpatchmanager"
+              API_URL="https://api.github.com/repos/$OWNER/$REPO/releases/latest"
 
-            let version = "";
-            let cliAssetUrl = "";
+              # Make the curl request to get the latest release
+              response=$(curl -s $API_URL)
 
-            try {
-              let response = await github.rest.repos.getLatestRelease({
-                owner,
-                repo,
-              });
+              # Check if the curl command was successful
+              if [ $? -ne 0 ]; then
+                echo "Error fetching latest release."
+                exit 1
+              fi
 
-              if (response.data.assets.length > 0) {
-                for (let asset of response.data.assets) {
-                  if (asset.name.includes(".zip")) {
-                    cliAssetUrl = asset.browser_download_url;
-                    break;
-                  }
-                }
-              } else {
-                throw new Error("No assets found in the latest release.");
-              }
+              # Extract the tag name and asset download URL from the response
+              version=$(echo "$response" | jq -r .tag_name)
+              cliAssetUrl=$(echo "$response" | jq -r '.assets[] | select(.name | test(".zip")) | .browser_download_url')
 
-              let release = response.data;
-              version = release.tag_name;
+              if [ -z "$version" ] || [ -z "$cliAssetUrl" ]; then
+                echo "Error: No valid release or assets found."
+                exit 1
+              fi
 
-              core.info(`Latest release version: ${version}`);
-            } catch (error) {
-              console.error("Error fetching latest release:", error);
-              // You can set outputs here to handle failure gracefully
-              core.setOutput("latestTag", "error");
-              core.setOutput("cliAssetUrl", "error");
-              return;  // Early exit to prevent undefined values from being used
-            }
-
-            core.setOutput("latestTag", version);
-            core.setOutput("cliAssetUrl", cliAssetUrl);
+              # Set outputs for the latest tag and cli asset URL
+              echo "Latest release version: $version"
+              echo "cliAssetUrl: $cliAssetUrl"
+              
+              echo "::set-output name=latestTag::$version"
+              echo "::set-output name=cliAssetUrl::$cliAssetUrl"
             
       - name: Display Release Info
         run: |
