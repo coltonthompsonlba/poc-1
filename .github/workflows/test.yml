@@ -55,7 +55,9 @@ jobs:
               echo "::set-output name=latestTag::$version"
               echo "::set-output name=cliAssetUrl::$cliAssetUrl"
               echo "Downloading dbpatchmanager CLI..."
+              curl -L -o dbpatchmanager.zip ${cliAssetUrl}
               ls -al
+
               unzip -o dbpatchmanager.zip -d ./dbpatchmanager
               echo "Dbpatchmanager CLI downloaded and unzipped."
               cd Release
