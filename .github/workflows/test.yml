@@ -69,12 +69,7 @@ jobs:
       - name: Install SQL Module for Powershell
         shell: pwsh
         run: Install-Module -Name SqlServer -Scope CurrentUser -Force
-
-      - name: Make tool global
-        run: |
-          cd Release
-          ls -al
-          dotnet tool install --global --add-source . Ormico.DbPatchManager.CLI
+  
       - name: Run tool
         run: |
           dbpatch version
