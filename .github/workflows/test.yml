@@ -59,6 +59,7 @@ jobs:
               ls -al
 
               unzip -o dbpatchmanager.zip -d ./dbpatchmanager
+              ls -al
               echo "Dbpatchmanager CLI downloaded and unzipped."
               cd Release
               dotnet tool install --global --add-source . Ormico.DbPatchManager.CLI
