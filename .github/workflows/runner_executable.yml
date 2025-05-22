@@ -15,6 +15,10 @@ jobs:
         DOWNLOAD_URL=$(curl -s https://api.github.com/repos/ncino/dbpatchmanager/releases/latest | grep "browser_download_url.*linux" | cut -d '"' -f 4)
         wget $DOWNLOAD_URL -O my-app
         chmod +x my-app
+    - name: Make tool global
+      run: |
+        cp my-app /usr/bin/local
     
     - name: Run executable
-      run: ./my-app
+      run: my-app help
+ 
