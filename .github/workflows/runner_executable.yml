@@ -18,7 +18,8 @@ jobs:
     - name: Make tool global
       run: |
         sudo cp my-app /usr/bin/local
+        ls -al /usr/bin/local
     
     - name: Run executable
-      run: my-app help
+      run: dbpatch help
  
