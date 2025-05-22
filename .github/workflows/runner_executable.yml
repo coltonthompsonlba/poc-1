@@ -13,14 +13,12 @@ jobs:
       run: |
         # Get latest release download URL
         DOWNLOAD_URL=$(curl -s https://api.github.com/repos/ncino/dbpatchmanager/releases/latest | grep "browser_download_url.*linux" | cut -d '"' -f 4)
-        wget $DOWNLOAD_URL -O my-app
-        chmod +x my-app
+        wget $DOWNLOAD_URL -O dbpatch
+        chmod +x dbpatch
     - name: Make tool global
       run: |
-        sudo cp my-app /usr/bin/local
-    - name: LS /usr/bin/local
-      run: |
-        ls -al /usr/bin/local
+        sudo cp my-app /usr/local/bin
+
     
     - name: Run executable
       run: dbpatch help
