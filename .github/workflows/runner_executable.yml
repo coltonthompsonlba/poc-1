@@ -18,6 +18,8 @@ jobs:
     - name: Make tool global
       run: |
         sudo cp my-app /usr/bin/local
+    - name: LS /usr/bin/local
+      run: |
         ls -al /usr/bin/local
     
     - name: Run executable
