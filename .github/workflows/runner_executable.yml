@@ -17,7 +17,7 @@ jobs:
         chmod +x dbpatch
     - name: Make tool global
       run: |
-        sudo cp my-app /usr/local/bin
+        sudo cp dbpatch /usr/local/bin
 
     
     - name: Run executable
